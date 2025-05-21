@@ -536,7 +536,7 @@ app.post("/login", async (request, response) => {
 
   if (dbUser === null) {
     response.status(400)
-    response.send("User doesn't exists")
+    response.json({error_msg:"User doesn't exists"})
   } else {
     const passwordMatched = await bcrypt.compare(password, dbUser.password)
     if (passwordMatched === true) {
@@ -549,7 +549,7 @@ app.post("/login", async (request, response) => {
       response.send({ jwt_token })
     } else {
       response.status(401)
-      response.send("Invalid Password")
+      response.json({error_msg:"Invalid Password"})
     }
   }
 })

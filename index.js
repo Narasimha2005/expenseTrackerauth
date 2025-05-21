@@ -10,7 +10,7 @@ app.use(cors({
 
 app.use(express.json())
 
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const mongoose = require('mongoose')

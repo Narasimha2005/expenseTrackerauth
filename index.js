@@ -2,12 +2,22 @@ const express = require('express')
 const app = express()
 
 const cors = require('cors')
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://koinxexpensetracker.netlify.app/'
+];
+
 app.use(cors({
-  origin: '*',
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS Not Allowed'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
-app.options('*', cors());
 app.use(express.json())
 
 const bcrypt = require('bcryptjs')

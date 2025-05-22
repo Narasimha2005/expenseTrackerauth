@@ -3,7 +3,18 @@ const app = express()
 
 const cors = require('cors')
 
-
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*') // or replace '*' with your frontend URL(s)
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+  
+  // Handle preflight requests quickly
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204)
+  }
+  
+  next()
+})
 app.use(cors());
 app.use(express.json())
 
